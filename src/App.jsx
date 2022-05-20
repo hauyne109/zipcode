@@ -10,22 +10,21 @@ export default function App() {
   const onChangeZipcodeText = (event) => setZipcodeText(event.target.value);
 
   const onClickSearch = () => {
-    const apiUrl = "https://zipcloud.ibsnet.co.jp/api/search";
+    const url = "https://zipcloud.ibsnet.co.jp/api/search";
 
     if (zipcodeText === "") return;
     if (!validationZipcode(zipcodeText))
       return alert("郵便番号は7桁の数字で入力してください。");
 
     axios
-      .get(apiUrl, {
+      .get(url, {
         adapter: axiosJsonpAdapter,
-        callbackParmName: "callback",
         params: {
-          zipcode: { zipcodeText }
+          zipcode: zipcodeText
         }
       })
       .then((res) => {
-        alert(res.data);
+        console.log(res);
       });
   };
 
